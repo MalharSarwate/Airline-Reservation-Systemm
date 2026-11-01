@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+coverage/
+target/
+.idea/
+.vscode/
+*.iml
+.DS_Store
+*.tsbuildinfo
+test-results/
+playwright-report/

@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: airline-reservation-system
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:${POSTGRES_PORT:5432}/${POSTGRES_DB:airline}}
+    username: ${POSTGRES_USER:airline}
+    password: ${POSTGRES_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
+server:
+  port: ${SERVER_PORT:8080}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: readinessState,db
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+app:
+  jwt-secret: ${JWT_SECRET}
+amadeus:
+  client-id: ${AMADEUS_CLIENT_ID:}
+  client-secret: ${AMADEUS_CLIENT_SECRET:}
+  environment: ${AMADEUS_ENVIRONMENT:test}
