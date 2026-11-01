@@ -1,0 +1,34 @@
+{
+  "description": "Small reference sample transcribed from web-search excerpts of public Skyscanner route pages. Not an API export or live quote. Not imported into booking inventory.",
+  "observed_on": "2026-11-01",
+  "records": [
+    {
+      "origin": "BOM",
+      "destination": "BLR",
+      "airline": "Akasa Air",
+      "advertised_price_inr": 4986,
+      "departure_label_as_displayed": "Wed, 9 Dec",
+      "departure_year": null,
+      "trip_type": "one-way",
+      "stops": 0,
+      "price_basis": "per passenger; taxes and charges included per source excerpt",
+      "source_url": "https://www.skyscanner.co.in/routes/bom/blr/mumbai-to-bengaluru.html",
+      "access_method": "web search excerpt; page not independently opened",
+      "live_verified": false
+    },
+    {
+      "origin": "BLR",
+      "destination": "BOM",
+      "airline": "Air India",
+      "advertised_price_inr": 4576,
+      "departure_label_as_displayed": "Thu, 7 Jan",
+      "departure_year": null,
+      "trip_type": "one-way",
+      "stops": 0,
+      "price_basis": "per passenger; taxes and charges included per source excerpt",
+      "source_url": "https://www.skyscanner.co.in/routes/blr/bom/bengaluru-to-mumbai.html",
+      "access_method": "web search excerpt; page not independently opened",
+      "live_verified": false
+    }
+  ]
+}
