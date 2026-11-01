@@ -1,5 +1,9 @@
 # Airline Reservation System
 
+**Shareable frontend demo:** [Open Aeroline on GitHub Pages](https://malharsarwate.github.io/Airline-Reservation-Systemm/)
+
+The Pages version includes all frontend pages, compiled CSS, JavaScript and the interactive 3D cabin. It runs with explicitly simulated browser-local accounts, seats, bookings and admin changes; no laptop, Java server or database is needed to view this demo. Use example passenger details. For the real Java/PostgreSQL implementation, follow the local instructions below.
+
 A local full-stack airline reservation demo built with Java 21 / Spring Boot 3, PostgreSQL and React 18 / TypeScript. Authentication, searchable flights, seat holds, 2D and 3D cabin selection, booking checkout and booking management are connected to the backend.
 
 ## Features
@@ -168,3 +172,23 @@ The home page includes a separate Amadeus comparison panel. Configure `AMADEUS_C
 In the Choose seats step, open **Help me choose**. Set a priority (sit together, window, aisle, extra legroom, distance from marked facilities, or price) and an optional total fare-and-seat budget. Up to three available arrangements show passenger assignments, total cost and reasons/trade-offs. Preview highlights suggested seats without holding them. Compare two seats for position, legroom, recline, power and current availability, then open either seat's 3D passenger view.
 
 **Reserve this plan** calls `POST /api/seats/hold/group`, replacing only the current booking form's holds in a single database transaction. If one seat cannot be held, the previous assignments and holds remain unchanged. Booking validation still applies at checkout. The planner excludes exit rows when any traveller is under 16, uses deterministic seat-feature rules, and does not predict real cabin noise or comfort. Prices exclude baggage and meal extras.
+
+## GitHub Pages deployment
+
+The `.github/workflows/pages.yml` workflow installs frontend dependencies, runs unit tests, builds with `npm run build:pages`, and publishes `frontend/dist` using GitHub Actions. Repository Settings → Pages must use **GitHub Actions**. `PAGES_BASE_PATH` is set from the repository name. No API keys, database passwords or server secrets are needed for this static demo.
+
+The Pages build uses hash routes, for example `/#/flights` after the repository prefix, so copied links and reloads work on a static host. It includes all compiled CSS and lazy-loaded 3D modules. `npm run build` and `npm run dev` continue to use the Spring Boot API; the separate `build:pages` command enables browser-local simulation.
+
+Try it locally:
+
+```sh
+cd frontend
+npm ci
+npm run build:pages
+npm run preview -- --mode pages
+# Open the printed URL with /Airline-Reservation-Systemm/ appended.
+```
+
+Click **Enter demo** to explore as a traveller or admin, without entering real account credentials. Bookings/admin changes are saved only in the current browser's localStorage; sign-in is in memory and resets on reload. **Reset demo** clears the demo data after confirmation. Ten-minute holds and group-reservation rollback are simulated locally and are not shared between different visitors.
+
+Run `npm run test:pages` after building to test the static deployment without the backend. Set `PAGES_DEMO_URL=https://malharsarwate.github.io/Airline-Reservation-Systemm/` to run the same browser journeys against the live site.

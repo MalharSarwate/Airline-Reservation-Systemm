@@ -9,6 +9,8 @@ import {
 } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import Search from './pages/Search';
+import { DEMO_MODE } from './config';
+import DemoBanner from './components/DemoBanner';
 import Landing from './pages/Landing';
 import Auth from './pages/Auth';
 import { useSession } from './store';
@@ -37,7 +39,14 @@ export default function App() {
     <div
       className={`shell ${location.pathname === '/' ? '' : 'app-workspace'}`}
     >
-      <a className="skip" href="#main">
+      <a
+        className="skip"
+        href="#main"
+        onClick={(e) => {
+          e.preventDefault();
+          document.getElementById('main')?.focus();
+        }}
+      >
         Skip to content
       </a>
       <header>
@@ -65,12 +74,13 @@ export default function App() {
             </>
           ) : (
             <Link className="button secondary" to="/auth">
-              Sign in ↗
+              {DEMO_MODE ? 'Enter demo ↗' : 'Sign in ↗'}
             </Link>
           )}
         </div>
       </header>
-      <main id="main">
+      {DEMO_MODE && <DemoBanner />}
+      <main id="main" tabIndex={-1}>
         <Suspense
           fallback={<div className="skeleton">Preparing your journey…</div>}
         >

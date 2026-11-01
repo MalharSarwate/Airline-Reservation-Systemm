@@ -31,3 +31,12 @@ See README.md for reproducible commands, admin provisioning and configuration. T
 - New atomic group-hold test confirms rollback restores old holds and leaves no partial allocation after a conflict.
 - Frontend: eight unit/component tests passed, including plan adjacency, availability/cabin restrictions, budget, window preference and exact exit-row age boundary. Lint and production build passed.
 - Three Playwright browser journeys passed; booking journey now includes applying a group plan, comparing seats and opening a comparison's passenger view before mock checkout and cancellation.
+
+## GitHub Pages frontend demo
+
+- Added separate Pages build with repository asset base and hash routing; normal development still targets Spring Boot.
+- Thirteen frontend unit/component tests passed, including browser-local booking, idempotency, PDFs, expiry, payment decline, group rollback and reset.
+- Two static-host Playwright journeys passed against a production build, covering desktop two-traveller booking and mobile/admin/reload/reset. The booking test asserts that no backend API requests are made.
+- Browser-local state simulates backend operations for presentation only; no real account authentication, cross-visitor seat locking, airline inventory or payment is claimed by this deployment.
+
+- GitHub Actions deployment succeeded. The published CSS and JavaScript assets returned HTTP 200, and both static-demo Playwright journeys passed against the actual public GitHub Pages URL.
