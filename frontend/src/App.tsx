@@ -9,6 +9,8 @@ import {
 } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import Search from './pages/Search';
+import { DEMO_MODE } from './config';
+import DemoBanner from './components/DemoBanner';
 import Landing from './pages/Landing';
 import Auth from './pages/Auth';
 import { useSession } from './store';
@@ -65,11 +67,12 @@ export default function App() {
             </>
           ) : (
             <Link className="button secondary" to="/auth">
-              Sign in ↗
+              {DEMO_MODE ? 'Enter demo ↗' : 'Sign in ↗'}
             </Link>
           )}
         </div>
       </header>
+      {DEMO_MODE && <DemoBanner />}
       <main id="main">
         <Suspense
           fallback={<div className="skeleton">Preparing your journey…</div>}

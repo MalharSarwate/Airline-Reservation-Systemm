@@ -1,3 +1,4 @@
+import { DEMO_MODE } from '../config';
 import { useSession } from '../store';
 import type { Tokens } from '../types';
 export class ApiError extends Error {
@@ -29,14 +30,16 @@ export async function request(
   retry = true,
 ): Promise<Response> {
   const token = useSession.getState().accessToken;
-  const response = await fetch('/api' + path, {
-    ...init,
-    headers: {
-      ...(init.body ? { 'Content-Type': 'application/json' } : {}),
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...init.headers,
-    },
-  });
+  const response = DEMO_MODE
+    ? await (await import('../demo/api')).demoRequest(path, init)
+    : await fetch('/api' + path, {
+        ...init,
+        headers: {
+          ...(init.body ? { 'Content-Type': 'application/json' } : {}),
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          ...init.headers,
+        },
+      });
   if (
     response.status === 401 &&
     retry &&

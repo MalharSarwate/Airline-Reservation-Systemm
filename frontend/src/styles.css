@@ -4019,3 +4019,76 @@ footer {
     min-height: 42px;
   }
 }
+
+.pages-demo-banner {
+  margin: 18px auto 0;
+  max-width: 1360px;
+  border: 1px solid #a8c88340;
+  border-radius: 6px;
+  background: #13343b;
+  color: #bcd0b6;
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  font-size: 10px;
+}
+.shell:has(.landing) > .pages-demo-banner {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+.pages-demo-banner > div:first-child {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.pages-demo-banner b {
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  color: #d0eaa0;
+}
+.demo-banner-actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.demo-banner-actions a,
+.demo-banner-actions button,
+.demo-reset-confirm button {
+  background: none;
+  border: 0;
+  color: #d0eaa0;
+  font-size: 10px;
+  padding: 5px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.demo-reset-confirm {
+  width: 100%;
+  border-top: 1px solid #88a66a44;
+  padding-top: 12px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.demo-reset-confirm > span {
+  margin-right: auto;
+}
+@media (max-width: 760px) {
+  .pages-demo-banner {
+    padding: 13px;
+    font-size: 9px;
+    gap: 10px;
+  }
+  .pages-demo-banner > div:first-child {
+    gap: 8px;
+  }
+  .demo-banner-actions {
+    justify-content: space-between;
+    width: 100%;
+  }
+}

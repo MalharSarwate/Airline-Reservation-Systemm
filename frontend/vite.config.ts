@@ -5,6 +5,15 @@ import { defineConfig, configDefaults } from 'vitest/config';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   return {
+    base:
+      mode === 'pages'
+        ? env.PAGES_BASE_PATH || '/Airline-Reservation-Systemm/'
+        : '/',
+    define: {
+      'import.meta.env.VITE_DEMO_MODE': JSON.stringify(
+        mode === 'pages' ? 'true' : 'false',
+      ),
+    },
     plugins: [react()],
     optimizeDeps: {
       include: ['zustand', '@react-three/fiber', '@react-three/drei', 'three'],
@@ -21,7 +30,7 @@ export default defineConfig(({ mode }) => {
     test: {
       environment: 'jsdom',
       setupFiles: ['./src/test/setup.ts'],
-      exclude: [...configDefaults.exclude, 'e2e/**'],
+      exclude: [...configDefaults.exclude, 'e2e/**', 'e2e-pages/**'],
     },
   };
 });

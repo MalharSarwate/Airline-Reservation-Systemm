@@ -6,6 +6,7 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { DEMO_MODE } from '../config';
 import { api, message } from '../api/client';
 import { useSession } from '../store';
 import {
@@ -72,12 +73,21 @@ export default function Book() {
   });
   const { refetch } = seatmap;
   useEffect(() => {
-    const events = new EventSource(`/api/flights/${id}/events`);
-    events.addEventListener('seats', () => void refetch());
+    const refresh = () => void refetch();
+    const events = DEMO_MODE
+      ? null
+      : new EventSource(`/api/flights/${id}/events`);
+    events?.addEventListener('seats', refresh);
+    if (DEMO_MODE) {
+      window.addEventListener('aeroline-demo-change', refresh);
+      window.addEventListener('storage', refresh);
+    }
     const timer = window.setInterval(() => setNow(Date.now()), 1000);
     return () => {
-      events.close();
+      events?.close();
       clearInterval(timer);
+      window.removeEventListener('aeroline-demo-change', refresh);
+      window.removeEventListener('storage', refresh);
     };
   }, [id, refetch]);
   const map = seatmap.data;
@@ -290,14 +300,16 @@ export default function Book() {
       </nav>
       {!user && (
         <div className="notice">
-          Sign in to reserve your seats.{' '}
+          {DEMO_MODE
+            ? 'Enter the demo to try seat reservations.'
+            : 'Sign in to reserve your seats.'}{' '}
           <Link
             to={
               '/auth?next=' +
               encodeURIComponent(location.pathname + location.search)
             }
           >
-            Sign in or create an account →
+            {DEMO_MODE ? 'Enter demo →' : 'Sign in or create an account →'}
           </Link>
         </div>
       )}
@@ -632,8 +644,9 @@ export default function Book() {
             are not included.
           </small>
           <p className="notice">
-            Seats are held for 10 minutes. Live availability updates
-            automatically.
+            {DEMO_MODE
+              ? 'Demo holds last 10 minutes. Changes apply only to this browser.'
+              : 'Seats are held for 10 minutes. Live availability updates automatically.'}
           </p>
         </aside>
       </div>

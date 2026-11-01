@@ -3,8 +3,13 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { api, message } from '../api/client';
 import { useSession } from '../store';
+import { DEMO_MODE } from '../config';
+import DemoAuth from './DemoAuth';
 import type { Tokens } from '../types';
 export default function Auth() {
+  return DEMO_MODE ? <DemoAuth /> : <ServerAuth />;
+}
+function ServerAuth() {
   const [params] = useSearchParams();
   const [register, setRegister] = useState(false);
   const [busy, setBusy] = useState(false);
