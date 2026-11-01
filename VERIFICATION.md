@@ -38,3 +38,5 @@ See README.md for reproducible commands, admin provisioning and configuration. T
 - Thirteen frontend unit/component tests passed, including browser-local booking, idempotency, PDFs, expiry, payment decline, group rollback and reset.
 - Two static-host Playwright journeys passed against a production build, covering desktop two-traveller booking and mobile/admin/reload/reset. The booking test asserts that no backend API requests are made.
 - Browser-local state simulates backend operations for presentation only; no real account authentication, cross-visitor seat locking, airline inventory or payment is claimed by this deployment.
+
+- GitHub Actions deployment succeeded. The published CSS and JavaScript assets returned HTTP 200, and both static-demo Playwright journeys passed against the actual public GitHub Pages URL.

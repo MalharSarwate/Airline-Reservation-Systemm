@@ -40,7 +40,22 @@ export default function Landing() {
             <Link className="button" to="/flights">
               Find your next flight <span>↗</span>
             </Link>
-            <a href="#experience" className="landing-tour">
+            <a
+              href="#experience"
+              className="landing-tour"
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .getElementById('experience')
+                  ?.scrollIntoView({
+                    behavior: window.matchMedia(
+                      '(prefers-reduced-motion: reduce)',
+                    ).matches
+                      ? 'auto'
+                      : 'smooth',
+                  });
+              }}
+            >
               Explore the experience ↓
             </a>
           </div>

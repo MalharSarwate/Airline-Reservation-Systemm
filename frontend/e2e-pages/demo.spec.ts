@@ -15,6 +15,15 @@ test('public static demo runs the full booking flow without any backend', async 
   await expect(page.getByLabel('Demo information')).toContainText(
     'Saved only in this browser',
   );
+  await page
+    .getByRole('link', { name: 'Explore the experience ↓', exact: true })
+    .click();
+  await expect(
+    page.getByRole('heading', {
+      name: 'Your seat. Your space. Your kind of journey.',
+    }),
+  ).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Go beyond/ })).toBeAttached();
   await page.getByRole('link', { name: 'Find your next flight ↗' }).click();
   await expect(
     page.getByRole('link', { name: 'Choose flight →' }).first(),

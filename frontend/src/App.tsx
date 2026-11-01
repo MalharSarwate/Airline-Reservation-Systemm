@@ -39,7 +39,14 @@ export default function App() {
     <div
       className={`shell ${location.pathname === '/' ? '' : 'app-workspace'}`}
     >
-      <a className="skip" href="#main">
+      <a
+        className="skip"
+        href="#main"
+        onClick={(e) => {
+          e.preventDefault();
+          document.getElementById('main')?.focus();
+        }}
+      >
         Skip to content
       </a>
       <header>
@@ -73,7 +80,7 @@ export default function App() {
         </div>
       </header>
       {DEMO_MODE && <DemoBanner />}
-      <main id="main">
+      <main id="main" tabIndex={-1}>
         <Suspense
           fallback={<div className="skeleton">Preparing your journey…</div>}
         >
